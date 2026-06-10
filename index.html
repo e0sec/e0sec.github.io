@@ -401,6 +401,9 @@
       <button class="li-btn" data-platform="ctftime">
         CTFtime
       </button>
+      <button class="li-btn team-only" id="themctf-btn" data-platform="themctf">
+        THEM?!CTF cert
+      </button>
       <button class="li-btn e1-only" id="bscp-btn" data-platform="bscp">
         BSCP
       </button>
@@ -409,6 +412,9 @@
       </button>
       <button class="li-btn e1-only" id="az500-btn" data-platform="az500">
         AZ-500
+      </button>
+      <button class="li-btn e1-only" data-platform="cybergame">
+        CyberGame
       </button>
     </div>
     <a id="li-link" href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener" class="li-open">
@@ -506,8 +512,8 @@
 
   // Profiles roulette
   const profiles = {
-    team: { linkedin: 'https://www.linkedin.com/company/e0sec/', ctftime: 'https://ctftime.org/team/436674' },
-    e1:   { linkedin: 'https://www.linkedin.com/in/ivan-oravec',  ctftime: 'https://ctftime.org/user/212906', bscp: 'https://portswigger.net/web-security/e/c/79d6f7b209a5bca4', az104: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/8e3e27f7072e8de6', az500: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/a2fd68a80b57d849' }
+    team: { linkedin: 'https://www.linkedin.com/company/e0sec/', ctftime: 'https://ctftime.org/team/436674', themctf: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/themctf2026-certificate.png' },
+    e1:   { linkedin: 'https://www.linkedin.com/in/ivan-oravec',  ctftime: 'https://ctftime.org/user/212906', bscp: 'https://portswigger.net/web-security/e/c/79d6f7b209a5bca4', az104: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/8e3e27f7072e8de6', az500: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/a2fd68a80b57d849', cybergame: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/cybergame2026-certificate.png' }
   };
 
   let selWho      = 'team';
@@ -516,6 +522,7 @@
   const bscpBtn = document.getElementById('bscp-btn');
 
   document.querySelectorAll('.e1-only').forEach(b => b.style.display = 'none');
+  document.querySelectorAll('.team-only').forEach(b => b.style.display = 'inline-flex');
 
   function updateLink() {
     const url = profiles[selWho] && profiles[selWho][selPlatform];
@@ -526,10 +533,18 @@
 
   const e1OnlyBtns = document.querySelectorAll('.e1-only');
 
+  const teamOnlyBtns = document.querySelectorAll('.team-only');
+
   function setWho(who) {
     selWho = who;
     e1OnlyBtns.forEach(b => b.style.display = who === 'e1' ? 'inline-flex' : 'none');
-    if (who === 'team' && ['bscp','az104','az500'].includes(selPlatform)) {
+    teamOnlyBtns.forEach(b => b.style.display = who === 'team' ? 'inline-flex' : 'none');
+    if (who === 'e1' && selPlatform === 'themctf') {
+      selPlatform = 'linkedin';
+      document.querySelectorAll('[data-platform]').forEach(b =>
+        b.classList.toggle('active', b.dataset.platform === 'linkedin'));
+    }
+    if (who === 'team' && ['bscp','az104','az500','cybergame'].includes(selPlatform)) {
       selPlatform = 'linkedin';
       document.querySelectorAll('[data-platform]').forEach(b =>
         b.classList.toggle('active', b.dataset.platform === 'linkedin'));
