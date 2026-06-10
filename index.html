@@ -206,6 +206,70 @@
       .results .rank { text-align: left; }
     }
 
+    /* ── LINKEDIN ROULETTE ── */
+    .li-roulette {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .li-btn {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .li-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .li-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .li-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.1rem 0.35rem;
+      letter-spacing: 0.05em;
+    }
+
+    .li-btn.active .li-tag {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .li-open {
+      font-size: 0.82rem;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .li-open:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .cursor { animation: none; opacity: 1; }
       .wrap { animation: none; opacity: 1; }
@@ -315,10 +379,24 @@
       <a href="https://github.com/e0sec" target="_blank" rel="noopener">
         GitHub <span class="arrow">↗</span>
       </a>
-      <a href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener">
-        LinkedIn <span class="arrow">↗</span>
-      </a>
     </div>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="label">// linkedin</div>
+    <div class="li-roulette">
+      <button class="li-btn active" data-url="https://www.linkedin.com/company/e0sec/" data-label="e0 Security">
+        <span class="li-tag">team</span> e0 Security
+      </button>
+      <button class="li-btn" data-url="https://www.linkedin.com/in/ivan-oravec" data-label="e1 · Ivan Oravec">
+        <span class="li-tag">e1</span> Ivan Oravec
+      </button>
+    </div>
+    <a id="li-link" href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener" class="li-open">
+      open profile <span class="arrow">↗</span>
+    </a>
   </div>
 
   <hr>
@@ -347,7 +425,7 @@
       cmd: 'whoami',
       output: 'e1',
       sub: 'uid=1337 gid=0(e0sec) groups=pentest,ctf,research',
-      about: 'Senior security engineer with 15+ years across offensive security, cloud infrastructure, and identity. Burp Suite Certified Practitioner. Dual Azure-certified (AZ-104 + AZ-500, renewed 2026). Conference speaker at Openslava 2024 &amp; 2025. <a href="https://www.linkedin.com/in/ivan-oravec" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">linkedin ↗</a>'
+      about: 'Senior security engineer with 15+ years across offensive security, cloud infrastructure, and identity. Burp Suite Certified Practitioner. Dual Azure-certified (AZ-104 + AZ-500, renewed 2026). Conference speaker at Openslava 2024 &amp; 2025.'
     }
   ];
 
@@ -408,6 +486,18 @@
   // Init
   cmdEl.textContent = states[0].cmd;
   runCycle();
+
+  // LinkedIn roulette
+  const liBtns = document.querySelectorAll('.li-btn');
+  const liLink = document.getElementById('li-link');
+
+  liBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      liBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      liLink.href = btn.dataset.url;
+    });
+  });
 </script>
 </body>
 </html>
