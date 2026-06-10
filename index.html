@@ -387,26 +387,28 @@
       <button class="li-btn" data-platform="ctftime">
         CTFtime
       </button>
-      <button class="li-btn team-only" id="themctf-btn" data-platform="themctf">
-        THEM?!CTF cert
-      </button>
       <button class="li-btn team-only" data-platform="writeups">
         CTF Writeups
       </button>
-      <button class="li-btn e1-only" id="bscp-btn" data-platform="bscp">
+      <button class="li-btn" data-platform="certs" id="certs-btn">
+        Certs
+      </button>
+    </div>
+    <div class="li-roulette" id="certs-row" style="display:none">
+      <button class="li-btn team-only" id="themctf-btn" data-cert="themctf">
+        THEM?!CTF 2026
+      </button>
+      <button class="li-btn e1-only" id="bscp-btn" data-cert="bscp">
         BSCP
       </button>
-      <button class="li-btn e1-only" id="az104-btn" data-platform="az104">
+      <button class="li-btn e1-only" data-cert="az104">
         AZ-104
       </button>
-      <button class="li-btn e1-only" id="az500-btn" data-platform="az500">
+      <button class="li-btn e1-only" data-cert="az500">
         AZ-500
       </button>
-      <button class="li-btn e1-only" data-platform="cybergame">
+      <button class="li-btn e1-only" data-cert="cybergame">
         CyberGame
-      </button>
-      <button class="li-btn e1-only" data-platform="github">
-        GitHub
       </button>
     </div>
     <a id="li-link" href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener" class="li-open">
@@ -429,6 +431,7 @@
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
+  // ── TERMINAL ANIMATION ──────────────────────────────────────
   const states = [
     {
       cmd: 'id -gn',
@@ -445,125 +448,153 @@
   ];
 
   let current = 0;
-  const cmdEl    = document.getElementById('cmd');
-  const outEl    = document.getElementById('id-output');
-  const subEl    = document.getElementById('id-sub');
-  const aboutEl  = document.getElementById('about-text');
+  const cmdEl   = document.getElementById('cmd');
+  const outEl   = document.getElementById('id-output');
+  const subEl   = document.getElementById('id-sub');
+  const aboutEl = document.getElementById('about-text');
 
   function typeString(el, str, cb) {
-    el.textContent = '';
-    let i = 0;
-    const t = setInterval(() => {
-      el.textContent += str[i++];
-      if (i >= str.length) { clearInterval(t); if (cb) cb(); }
-    }, 60);
+    el.textContent = ''; let i = 0;
+    const t = setInterval(() => { el.textContent += str[i++]; if (i >= str.length) { clearInterval(t); if (cb) cb(); } }, 60);
   }
-
   function eraseString(el, cb) {
-    const t = setInterval(() => {
-      el.textContent = el.textContent.slice(0, -1);
-      if (!el.textContent.length) { clearInterval(t); if (cb) cb(); }
-    }, 40);
+    const t = setInterval(() => { el.textContent = el.textContent.slice(0, -1); if (!el.textContent.length) { clearInterval(t); if (cb) cb(); } }, 40);
   }
-
   function fadeSwap(elements, values, cb) {
     elements.forEach(el => { el.style.transition = 'opacity 0.5s'; el.style.opacity = '0'; });
     setTimeout(() => {
-      elements.forEach((el, i) => {
-        if (values[i].html) el.innerHTML = values[i].val;
-        else el.textContent = values[i].val;
-        el.style.opacity = '1';
-      });
+      elements.forEach((el, i) => { if (values[i].html) el.innerHTML = values[i].val; else el.textContent = values[i].val; el.style.opacity = '1'; });
       if (cb) setTimeout(cb, 500);
     }, 500);
   }
-
   function runCycle() {
     const next = (current + 1) % states.length;
-    // Long pause so reader can absorb content — 9 seconds
     setTimeout(() => {
       eraseString(cmdEl, () => {
         typeString(cmdEl, states[next].cmd, () => {
-          fadeSwap(
-            [outEl, subEl, aboutEl],
-            [
-              { val: states[next].output },
-              { val: states[next].sub },
-              { val: states[next].about, html: true }
-            ],
-            () => { current = next; runCycle(); }
-          );
+          fadeSwap([outEl, subEl, aboutEl], [
+            { val: states[next].output },
+            { val: states[next].sub },
+            { val: states[next].about, html: true }
+          ], () => { current = next; runCycle(); });
         });
       });
     }, 9000);
   }
-
-  // Init
   cmdEl.textContent = states[0].cmd;
   runCycle();
 
-  // Profiles roulette
+  // ── PROFILES ROULETTE ────────────────────────────────────────
   const profiles = {
-    team: { linkedin: 'https://www.linkedin.com/company/e0sec/', ctftime: 'https://ctftime.org/team/436674', themctf: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/themctf2026-certificate.png', writeups: 'https://github.com/e0sec/ctf-writeups' },
-    e1:   { linkedin: 'https://www.linkedin.com/in/ivan-oravec',  ctftime: 'https://ctftime.org/user/212906', bscp: 'https://portswigger.net/web-security/e/c/79d6f7b209a5bca4', az104: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/8e3e27f7072e8de6', az500: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/a2fd68a80b57d849', cybergame: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/cybergame2026-certificate.png', github: 'https://github.com/e0sec' }
+    team: {
+      linkedin: 'https://www.linkedin.com/company/e0sec/',
+      ctftime:  'https://ctftime.org/team/436674',
+      writeups: 'https://github.com/e0sec/ctf-writeups'
+    },
+    e1: {
+      linkedin: 'https://www.linkedin.com/in/ivan-oravec',
+      ctftime:  'https://ctftime.org/user/212906'
+    }
+  };
+
+  const certs = {
+    team: {
+      themctf: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/themctf2026-certificate.png'
+    },
+    e1: {
+      bscp:      'https://portswigger.net/web-security/e/c/79d6f7b209a5bca4',
+      az104:     'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/8e3e27f7072e8de6',
+      az500:     'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/a2fd68a80b57d849',
+      cybergame: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/cybergame2026-certificate.png'
+    }
   };
 
   let selWho      = 'team';
   let selPlatform = 'linkedin';
-  const liLink  = document.getElementById('li-link');
-  const bscpBtn = document.getElementById('bscp-btn');
+  let selCert     = null;
 
-  document.querySelectorAll('.e1-only').forEach(b => b.style.display = 'none');
-  document.querySelectorAll('.team-only').forEach(b => b.style.display = 'inline-flex');
+  const liLink   = document.getElementById('li-link');
+  const certsRow = document.getElementById('certs-row');
 
   function updateLink() {
-    const url = profiles[selWho] && profiles[selWho][selPlatform];
-    liLink.href            = url || '#';
-    liLink.style.opacity   = url ? '1' : '0.3';
+    const url = selPlatform === 'certs'
+      ? (certs[selWho] || {})[selCert]
+      : (profiles[selWho] || {})[selPlatform];
+    liLink.href = url || '#';
+    liLink.style.opacity = url ? '1' : '0.3';
     liLink.style.pointerEvents = url ? 'auto' : 'none';
   }
 
-  const e1OnlyBtns = document.querySelectorAll('.e1-only');
-
-  const teamOnlyBtns = document.querySelectorAll('.team-only');
-
-  function setWho(who) {
-    selWho = who;
-    e1OnlyBtns.forEach(b => b.style.display = who === 'e1' ? 'inline-flex' : 'none');
-    teamOnlyBtns.forEach(b => b.style.display = who === 'team' ? 'inline-flex' : 'none');
-    if (who === 'e1' && ['themctf','writeups'].includes(selPlatform)) {
-      selPlatform = 'linkedin';
-      document.querySelectorAll('[data-platform]').forEach(b =>
-        b.classList.toggle('active', b.dataset.platform === 'linkedin'));
-    }
-    if (who === 'team' && ['bscp','az104','az500','cybergame','github'].includes(selPlatform)) {
-      selPlatform = 'linkedin';
-      document.querySelectorAll('[data-platform]').forEach(b =>
-        b.classList.toggle('active', b.dataset.platform === 'linkedin'));
-    }
-    updateLink();
+  function refreshCertsRow(who) {
+    // show/hide cert buttons based on who
+    document.querySelectorAll('[data-cert]').forEach(b => {
+      b.style.display = (b.classList.contains('team-only') && who === 'team') ||
+                        (b.classList.contains('e1-only')   && who === 'e1')
+                        ? 'inline-flex' : 'none';
+    });
+    // activate first visible cert
+    const first = Array.from(document.querySelectorAll('[data-cert]')).find(b => b.style.display !== 'none');
+    document.querySelectorAll('[data-cert]').forEach(b => b.classList.remove('active'));
+    if (first) { first.classList.add('active'); selCert = first.dataset.cert; }
+    else selCert = null;
   }
 
-  function setPlatform(platform) {
-    selPlatform = platform;
-    updateLink();
-  }
-
+  // Who buttons
   document.querySelectorAll('[data-who]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-who]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      setWho(btn.dataset.who);
+      selWho = btn.dataset.who;
+
+      // show/hide writeups (team only)
+      document.querySelectorAll('[data-platform="writeups"]').forEach(b =>
+        b.style.display = selWho === 'team' ? 'inline-flex' : 'none');
+
+      // if current platform not available for new who, reset to linkedin
+      if (selPlatform !== 'certs' && !(profiles[selWho] || {})[selPlatform]) {
+        selPlatform = 'linkedin';
+        document.querySelectorAll('[data-platform]').forEach(b =>
+          b.classList.toggle('active', b.dataset.platform === 'linkedin'));
+        certsRow.style.display = 'none';
+      }
+
+      if (selPlatform === 'certs') refreshCertsRow(selWho);
+      updateLink();
     });
   });
 
+  // Platform buttons
   document.querySelectorAll('[data-platform]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-platform]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      setPlatform(btn.dataset.platform);
+      selPlatform = btn.dataset.platform;
+      if (selPlatform === 'certs') {
+        certsRow.style.display = 'flex';
+        refreshCertsRow(selWho);
+      } else {
+        certsRow.style.display = 'none';
+        selCert = null;
+      }
+      updateLink();
     });
   });
+
+  // Cert buttons
+  document.querySelectorAll('[data-cert]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-cert]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selCert = btn.dataset.cert;
+      updateLink();
+    });
+  });
+
+  // Init — hide writeups for e1, init cert row hidden
+  document.querySelectorAll('[data-platform="writeups"]').forEach(b => b.style.display = 'inline-flex');
+  certsRow.style.display = 'none';
+  refreshCertsRow('team');
+  updateLink();
 </script>
 </body>
 </html>
