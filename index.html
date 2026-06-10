@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>e0 Security</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0a0a0a;
+      --surface:  #111111;
+      --border:   #222222;
+      --text:     #d8d8d8;
+      --muted:    #555555;
+      --accent:   #c8f542;
+      --mono:     'JetBrains Mono', monospace;
+    }
+
+    html { font-size: 14px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      padding: 0 1.5rem;
+    }
+
+    .wrap {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 5rem 0 6rem;
+      opacity: 0;
+      animation: fadein 0.6s ease 0.2s forwards;
+    }
+
+    @keyframes fadein { to { opacity: 1; } }
+
+    /* ── PROMPT ── */
+    .prompt {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 2.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .prompt .path { color: var(--muted); font-weight: 300; }
+
+    .cursor {
+      display: inline-block;
+      width: 0.55em;
+      height: 1.1em;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── SECTIONS ── */
+    .section { margin-bottom: 3rem; }
+
+    .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.9rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #f0f0f0;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: 0.88rem;
+      color: var(--text);
+      max-width: 520px;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      list-style: none;
+      display: grid;
+      gap: 0.15rem;
+    }
+
+    .services li {
+      font-size: 0.85rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+    }
+
+    .services li:last-child { border-bottom: none; }
+
+    .services li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* ── CTF RESULTS ── */
+    .results {
+      list-style: none;
+      display: grid;
+      gap: 0.15rem;
+    }
+
+    .results li {
+      font-size: 0.82rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: baseline;
+    }
+
+    .results li:last-child { border-bottom: none; }
+
+    .results .rank {
+      color: var(--accent);
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .results .event { color: var(--text); }
+    .results .meta  { color: var(--muted); font-size: 0.75rem; }
+
+    /* ── LINKS ── */
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-family: var(--mono);
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.9rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .links a .arrow { font-size: 0.7rem; color: var(--muted); }
+    .links a:hover .arrow { color: var(--accent); }
+
+    /* ── CONTACT ── */
+    .contact {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact a:hover { text-decoration: underline; }
+
+    /* ── DIVIDER ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.8rem 0;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 480px) {
+      html { font-size: 13px; }
+      .wrap { padding: 3rem 0 4rem; }
+      .results li { grid-template-columns: 1fr; gap: 0.1rem; }
+      .results .rank { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; opacity: 1; }
+      .wrap { animation: none; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="prompt">
+    <span class="path">e0sec:~$ </span>whoami<span class="cursor"></span>
+  </div>
+
+  <div class="section">
+    <div class="label">// identity</div>
+    <h1>e0 Security</h1>
+    <p class="tagline">Offensive security research · Slovakia</p>
+  </div>
+
+  <div class="section">
+    <div class="label">// about</div>
+    <p>Independent security research practice specialising in penetration testing, vulnerability research, and red team operations. Active CTF competitor and team captain of <strong style="color:#e8e8e8">e0_</strong>.</p>
+  </div>
+
+  <div class="section">
+    <div class="label">// services</div>
+    <ul class="services">
+      <li>Penetration testing — web, API, infrastructure</li>
+      <li>Red team operations</li>
+      <li>Vulnerability research</li>
+      <li>Security training &amp; workshops</li>
+      <li>PTaaS engagements</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="label">// ctf results</div>
+    <ul class="results">
+      <li>
+        <span>
+          <div class="event">THEM?!CTF 2026</div>
+          <div class="meta">29–31 May · 920 teams · captain</div>
+        </span>
+        <span class="rank">28th</span>
+      </li>
+      <li>
+        <span>
+          <div class="event">GPN CTF 2026</div>
+          <div class="meta">5–6 June · 1138 teams</div>
+        </span>
+        <span class="rank">100th</span>
+      </li>
+      <li>
+        <span>
+          <div class="event">CyberGame Slovakia 2026</div>
+          <div class="meta">NBU SR / SK-CERT · 83 challenges</div>
+        </span>
+        <span class="rank">8th</span>
+      </li>
+      <li>
+        <span>
+          <div class="event">BSides Bratislava CTF</div>
+          <div class="meta">2026</div>
+        </span>
+        <span class="rank">2nd</span>
+      </li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="label">// links</div>
+    <div class="links">
+      <a href="https://github.com/e0sec/ctf-writeups" target="_blank" rel="noopener">
+        CTF Writeups <span class="arrow">↗</span>
+      </a>
+      <a href="https://github.com/e0sec" target="_blank" rel="noopener">
+        GitHub <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/company/e0security" target="_blank" rel="noopener">
+        LinkedIn <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="contact">
+    Engagements &amp; enquiries —
+    <a href="mailto:contact@e0sec.github.io">contact@e0sec.github.io</a>
+  </div>
+
+  <div class="footer">
+    e0 Security · Slovakia · <span id="yr"></span>
+  </div>
+
+</div>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
