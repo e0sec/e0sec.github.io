@@ -216,18 +216,18 @@
 <div class="wrap">
 
   <div class="prompt">
-    <span class="path">e0sec:~$ </span>id -gn<span class="cursor"></span>
+    <span class="path">e0sec:~$ </span><span id="cmd"></span><span class="cursor"></span>
   </div>
 
   <div class="section">
     <div class="label">// identity</div>
-    <h1>e0 Security</h1>
-    <p class="tagline">Offensive security research · Slovakia</p>
+    <h1 id="id-output">e0sec</h1>
+    <p class="tagline" id="id-sub">Offensive security research · Slovakia</p>
   </div>
 
   <div class="section">
     <div class="label">// about</div>
-    <p>Independent offensive security research team specialising in penetration testing, vulnerability research, and red team operations. Active CTF competitors under team tag <strong style="color:#e8e8e8">e0_</strong> — regularly placing in international competitions.</p>
+    <p id="about-text">Independent offensive security research team specialising in penetration testing, vulnerability research, and red team operations. Active CTF competitors under team tag <strong style="color:#e8e8e8">e0_</strong> — regularly placing in international competitions.</p>
   </div>
 
   <div class="section">
@@ -335,6 +335,79 @@
 </div>
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  const states = [
+    {
+      cmd: 'id -gn',
+      output: 'e0sec',
+      sub: 'Offensive security research team · Slovakia',
+      about: 'Independent offensive security research team specialising in penetration testing, vulnerability research, and red team operations. Active CTF competitors under team tag <strong style="color:#e8e8e8">e0_</strong> — regularly placing in international competitions.'
+    },
+    {
+      cmd: 'whoami',
+      output: 'e1',
+      sub: 'uid=1337 gid=0(e0sec) groups=pentest,ctf,research',
+      about: 'Senior security engineer with 15+ years across offensive security, cloud infrastructure, and identity. Burp Suite Certified Practitioner. Dual Azure-certified (AZ-104 + AZ-500, renewed 2026). Conference speaker at Openslava 2024 &amp; 2025. <a href="https://www.linkedin.com/in/ivan-oravec" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">linkedin ↗</a>'
+    }
+  ];
+
+  let current = 0;
+  const cmdEl    = document.getElementById('cmd');
+  const outEl    = document.getElementById('id-output');
+  const subEl    = document.getElementById('id-sub');
+  const aboutEl  = document.getElementById('about-text');
+
+  function typeString(el, str, cb) {
+    el.textContent = '';
+    let i = 0;
+    const t = setInterval(() => {
+      el.textContent += str[i++];
+      if (i >= str.length) { clearInterval(t); if (cb) cb(); }
+    }, 60);
+  }
+
+  function eraseString(el, cb) {
+    const t = setInterval(() => {
+      el.textContent = el.textContent.slice(0, -1);
+      if (!el.textContent.length) { clearInterval(t); if (cb) cb(); }
+    }, 40);
+  }
+
+  function fadeSwap(elements, values, cb) {
+    elements.forEach(el => { el.style.transition = 'opacity 0.5s'; el.style.opacity = '0'; });
+    setTimeout(() => {
+      elements.forEach((el, i) => {
+        if (values[i].html) el.innerHTML = values[i].val;
+        else el.textContent = values[i].val;
+        el.style.opacity = '1';
+      });
+      if (cb) setTimeout(cb, 500);
+    }, 500);
+  }
+
+  function runCycle() {
+    const next = (current + 1) % states.length;
+    // Long pause so reader can absorb content — 9 seconds
+    setTimeout(() => {
+      eraseString(cmdEl, () => {
+        typeString(cmdEl, states[next].cmd, () => {
+          fadeSwap(
+            [outEl, subEl, aboutEl],
+            [
+              { val: states[next].output },
+              { val: states[next].sub },
+              { val: states[next].about, html: true }
+            ],
+            () => { current = next; runCycle(); }
+          );
+        });
+      });
+    }, 9000);
+  }
+
+  // Init
+  cmdEl.textContent = states[0].cmd;
+  runCycle();
 </script>
 </body>
 </html>
