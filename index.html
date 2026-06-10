@@ -41,7 +41,6 @@
 
     @keyframes fadein { to { opacity: 1; } }
 
-    /* ── PROMPT ── */
     .prompt {
       font-size: 1.1rem;
       font-weight: 600;
@@ -64,7 +63,6 @@
 
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ── SECTIONS ── */
     .section { margin-bottom: 3rem; }
 
     .label {
@@ -97,7 +95,6 @@
       max-width: 520px;
     }
 
-    /* ── SERVICES ── */
     .services {
       list-style: none;
       display: grid;
@@ -122,7 +119,6 @@
       flex-shrink: 0;
     }
 
-    /* ── CTF RESULTS ── */
     .results {
       list-style: none;
       display: grid;
@@ -151,7 +147,6 @@
     .results .event { color: var(--text); }
     .results .meta  { color: var(--muted); font-size: 0.75rem; }
 
-    /* ── LINKS ── */
     .links {
       display: flex;
       flex-wrap: wrap;
@@ -180,7 +175,6 @@
     .links a .arrow { font-size: 0.7rem; color: var(--muted); }
     .links a:hover .arrow { color: var(--accent); }
 
-    /* ── CONTACT ── */
     .contact {
       font-size: 0.85rem;
       color: var(--muted);
@@ -193,14 +187,12 @@
 
     .contact a:hover { text-decoration: underline; }
 
-    /* ── DIVIDER ── */
     hr {
       border: none;
       border-top: 1px solid var(--border);
       margin: 2.8rem 0;
     }
 
-    /* ── FOOTER ── */
     .footer {
       font-size: 0.72rem;
       color: var(--muted);
@@ -224,7 +216,7 @@
 <div class="wrap">
 
   <div class="prompt">
-    <span class="path">e0sec:~$ </span>whoami<span class="cursor"></span>
+    <span class="path">e0sec:~$ </span>id -g<span class="cursor"></span>
   </div>
 
   <div class="section">
@@ -235,7 +227,7 @@
 
   <div class="section">
     <div class="label">// about</div>
-    <p>Independent security research practice specialising in penetration testing, vulnerability research, and red team operations. Active CTF competitor and team captain of <strong style="color:#e8e8e8">e0_</strong>.</p>
+    <p>Independent offensive security research team specialising in penetration testing, vulnerability research, and red team operations. Active CTF competitors under team tag <strong style="color:#e8e8e8">e0_</strong> — regularly placing in international competitions.</p>
   </div>
 
   <div class="section">
@@ -256,31 +248,52 @@
     <ul class="results">
       <li>
         <span>
+          <div class="event">CyberGame Slovakia 2026</div>
+          <div class="meta">1 Mar – 9 May · NBU SR / SK-CERT · 920 participants · top 1% nationally</div>
+        </span>
+        <span class="rank">8th</span>
+      </li>
+      <li>
+        <span>
+          <div class="event">BSides Bratislava CTF 2026</div>
+          <div class="meta">5–8 May · regional practitioners</div>
+        </span>
+        <span class="rank">2nd</span>
+      </li>
+      <li>
+        <span>
+          <div class="event">DEF CON CTF Qualifier 2026</div>
+          <div class="meta">22–25 May · 686 teams · team e0_</div>
+        </span>
+        <span class="rank">255th</span>
+      </li>
+      <li>
+        <span>
           <div class="event">THEM?!CTF 2026</div>
-          <div class="meta">29–31 May · 920 teams · captain</div>
+          <div class="meta">29–31 May · 920 teams · team e0_</div>
         </span>
         <span class="rank">28th</span>
       </li>
       <li>
         <span>
           <div class="event">GPN CTF 2026</div>
-          <div class="meta">5–6 June · 1138 teams</div>
+          <div class="meta">5–6 June · 1138 teams · team e0_</div>
         </span>
         <span class="rank">100th</span>
       </li>
       <li>
         <span>
-          <div class="event">CyberGame Slovakia 2026</div>
-          <div class="meta">NBU SR / SK-CERT · 83 challenges</div>
+          <div class="event">Guardians Qualifications 2026</div>
+          <div class="meta">14–15 Feb · 130 teams · blue team defence</div>
         </span>
-        <span class="rank">8th</span>
+        <span class="rank">22nd</span>
       </li>
       <li>
         <span>
-          <div class="event">BSides Bratislava CTF</div>
-          <div class="meta">2026</div>
+          <div class="event">0xfun CTF 2026</div>
+          <div class="meta">12–14 Feb · 1351 teams · team knowitalls</div>
         </span>
-        <span class="rank">2nd</span>
+        <span class="rank">297th</span>
       </li>
     </ul>
   </div>
