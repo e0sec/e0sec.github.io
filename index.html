@@ -385,13 +385,21 @@
   <hr>
 
   <div class="section">
-    <div class="label">// linkedin</div>
-    <div class="li-roulette">
-      <button class="li-btn active" data-url="https://www.linkedin.com/company/e0sec/" data-label="e0 Security">
-        <span class="li-tag">team</span> e0 Security
+    <div class="label">// profiles</div>
+    <div class="li-roulette" id="who-row">
+      <button class="li-btn active" data-who="team">
+        <span class="li-tag">team</span> e0_
       </button>
-      <button class="li-btn" data-url="https://www.linkedin.com/in/ivan-oravec" data-label="e1 · Ivan Oravec">
+      <button class="li-btn" data-who="e1">
         <span class="li-tag">e1</span> Ivan Oravec
+      </button>
+    </div>
+    <div class="li-roulette" id="platform-row">
+      <button class="li-btn active" data-platform="linkedin">
+        LinkedIn
+      </button>
+      <button class="li-btn" data-platform="ctftime">
+        CTFtime
       </button>
     </div>
     <a id="li-link" href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener" class="li-open">
@@ -487,15 +495,41 @@
   cmdEl.textContent = states[0].cmd;
   runCycle();
 
-  // LinkedIn roulette
-  const liBtns = document.querySelectorAll('.li-btn');
-  const liLink = document.getElementById('li-link');
+  // Profiles roulette
+  const profiles = {
+    team: {
+      linkedin: 'https://www.linkedin.com/company/e0sec/',
+      ctftime:  'https://ctftime.org/team/436674'
+    },
+    e1: {
+      linkedin: 'https://www.linkedin.com/in/ivan-oravec',
+      ctftime:  'https://ctftime.org/user/212906'
+    }
+  };
 
-  liBtns.forEach(btn => {
+  let selWho      = 'team';
+  let selPlatform = 'linkedin';
+  const liLink    = document.getElementById('li-link');
+
+  function updateLink() {
+    liLink.href = profiles[selWho][selPlatform];
+  }
+
+  document.querySelectorAll('[data-who]').forEach(btn => {
     btn.addEventListener('click', () => {
-      liBtns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('[data-who]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      liLink.href = btn.dataset.url;
+      selWho = btn.dataset.who;
+      updateLink();
+    });
+  });
+
+  document.querySelectorAll('[data-platform]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-platform]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selPlatform = btn.dataset.platform;
+      updateLink();
     });
   });
 </script>
