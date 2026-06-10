@@ -401,6 +401,15 @@
       <button class="li-btn" data-platform="ctftime">
         CTFtime
       </button>
+      <button class="li-btn e1-only" id="bscp-btn" data-platform="bscp">
+        BSCP
+      </button>
+      <button class="li-btn e1-only" id="az104-btn" data-platform="az104">
+        AZ-104
+      </button>
+      <button class="li-btn e1-only" id="az500-btn" data-platform="az500">
+        AZ-500
+      </button>
     </div>
     <a id="li-link" href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener" class="li-open">
       open profile <span class="arrow">↗</span>
@@ -497,30 +506,47 @@
 
   // Profiles roulette
   const profiles = {
-    team: {
-      linkedin: 'https://www.linkedin.com/company/e0sec/',
-      ctftime:  'https://ctftime.org/team/436674'
-    },
-    e1: {
-      linkedin: 'https://www.linkedin.com/in/ivan-oravec',
-      ctftime:  'https://ctftime.org/user/212906'
-    }
+    team: { linkedin: 'https://www.linkedin.com/company/e0sec/', ctftime: 'https://ctftime.org/team/436674' },
+    e1:   { linkedin: 'https://www.linkedin.com/in/ivan-oravec',  ctftime: 'https://ctftime.org/user/212906', bscp: 'https://portswigger.net/web-security/e/c/79d6f7b209a5bca4', az104: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/8e3e27f7072e8de6', az500: 'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/a2fd68a80b57d849' }
   };
 
   let selWho      = 'team';
   let selPlatform = 'linkedin';
-  const liLink    = document.getElementById('li-link');
+  const liLink  = document.getElementById('li-link');
+  const bscpBtn = document.getElementById('bscp-btn');
+
+  document.querySelectorAll('.e1-only').forEach(b => b.style.display = 'none');
 
   function updateLink() {
-    liLink.href = profiles[selWho][selPlatform];
+    const url = profiles[selWho] && profiles[selWho][selPlatform];
+    liLink.href            = url || '#';
+    liLink.style.opacity   = url ? '1' : '0.3';
+    liLink.style.pointerEvents = url ? 'auto' : 'none';
+  }
+
+  const e1OnlyBtns = document.querySelectorAll('.e1-only');
+
+  function setWho(who) {
+    selWho = who;
+    e1OnlyBtns.forEach(b => b.style.display = who === 'e1' ? 'inline-flex' : 'none');
+    if (who === 'team' && ['bscp','az104','az500'].includes(selPlatform)) {
+      selPlatform = 'linkedin';
+      document.querySelectorAll('[data-platform]').forEach(b =>
+        b.classList.toggle('active', b.dataset.platform === 'linkedin'));
+    }
+    updateLink();
+  }
+
+  function setPlatform(platform) {
+    selPlatform = platform;
+    updateLink();
   }
 
   document.querySelectorAll('[data-who]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-who]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      selWho = btn.dataset.who;
-      updateLink();
+      setWho(btn.dataset.who);
     });
   });
 
@@ -528,8 +554,7 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-platform]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      selPlatform = btn.dataset.platform;
-      updateLink();
+      setPlatform(btn.dataset.platform);
     });
   });
 </script>
