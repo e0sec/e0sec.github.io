@@ -390,6 +390,9 @@
       <button class="li-btn team-only" data-platform="writeups">
         CTF Writeups
       </button>
+      <button class="li-btn e1-only" data-platform="cv">
+        CV
+      </button>
       <button class="li-btn" data-platform="certs" id="certs-btn">
         Certs
       </button>
@@ -493,7 +496,8 @@
     },
     e1: {
       linkedin: 'https://www.linkedin.com/in/ivan-oravec',
-      ctftime:  'https://ctftime.org/user/212906'
+      ctftime:  'https://ctftime.org/user/212906',
+      cv:       'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/ivan_oravec_public.pdf'
     }
   };
 
@@ -546,9 +550,11 @@
       btn.classList.add('active');
       selWho = btn.dataset.who;
 
-      // show/hide writeups (team only)
+      // show/hide writeups (team only) and cv (e1 only)
       document.querySelectorAll('[data-platform="writeups"]').forEach(b =>
         b.style.display = selWho === 'team' ? 'inline-flex' : 'none');
+      document.querySelectorAll('[data-platform="cv"]').forEach(b =>
+        b.style.display = selWho === 'e1' ? 'inline-flex' : 'none');
 
       // if current platform not available for new who, reset to linkedin
       if (selPlatform !== 'certs' && !(profiles[selWho] || {})[selPlatform]) {
@@ -592,6 +598,7 @@
 
   // Init — hide writeups for e1, init cert row hidden
   document.querySelectorAll('[data-platform="writeups"]').forEach(b => b.style.display = 'inline-flex');
+  document.querySelectorAll('[data-platform="cv"]').forEach(b => b.style.display = 'none');
   certsRow.style.display = 'none';
   refreshCertsRow('team');
   updateLink();
