@@ -148,16 +148,15 @@
     .results .meta  { color: var(--muted); font-size: 0.75rem; }
 
     .results a {
-      color: var(--text);
+      color: var(--accent);
       text-decoration: underline;
       text-decoration-style: dotted;
-      text-decoration-color: #444;
+      text-decoration-color: var(--accent);
       text-underline-offset: 3px;
     }
 
     .results a:hover {
-      color: var(--accent);
-      text-decoration-color: var(--accent);
+      text-decoration-style: solid;
     }
 
     .links {
@@ -173,20 +172,20 @@
       font-size: 0.82rem;
       font-family: var(--mono);
       font-weight: 400;
-      color: var(--text);
+      color: var(--accent);
       text-decoration: none;
-      border: 1px solid var(--border);
+      border: 1px solid var(--accent);
       padding: 0.45rem 0.9rem;
-      transition: border-color 0.15s, color 0.15s;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
     }
 
     .links a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--accent);
+      color: var(--bg);
     }
 
-    .links a .arrow { font-size: 0.7rem; color: var(--muted); }
-    .links a:hover .arrow { color: var(--accent); }
+    .links a .arrow { font-size: 0.7rem; color: var(--accent); }
+    .links a:hover .arrow { color: var(--bg); }
 
     .profile-group { margin-bottom: 1.4rem; }
     .profile-group:last-child { margin-bottom: 0; }
@@ -436,4 +435,5 @@
 </script>
 </body>
 </html>
+
 
