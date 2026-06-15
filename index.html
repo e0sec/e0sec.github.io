@@ -14,7 +14,7 @@
       --surface:  #111111;
       --border:   #222222;
       --text:     #d8d8d8;
-      --muted:    #555555;
+      --muted:    #888888;
       --accent:   #c8f542;
       --mono:     'JetBrains Mono', monospace;
     }
@@ -113,9 +113,9 @@
     .services li:last-child { border-bottom: none; }
 
     .services li::before {
-      content: '›';
-      color: var(--accent);
-      font-weight: 600;
+      content: '—';
+      color: var(--muted);
+      font-weight: 300;
       flex-shrink: 0;
     }
 
@@ -138,7 +138,7 @@
     .results li:last-child { border-bottom: none; }
 
     .results .rank {
-      color: var(--accent);
+      color: var(--text);
       font-weight: 600;
       text-align: right;
       white-space: nowrap;
@@ -146,6 +146,19 @@
 
     .results .event { color: var(--text); }
     .results .meta  { color: var(--muted); font-size: 0.75rem; }
+
+    .results a {
+      color: var(--text);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: #444;
+      text-underline-offset: 3px;
+    }
+
+    .results a:hover {
+      color: var(--accent);
+      text-decoration-color: var(--accent);
+    }
 
     .links {
       display: flex;
@@ -174,6 +187,15 @@
 
     .links a .arrow { font-size: 0.7rem; color: var(--muted); }
     .links a:hover .arrow { color: var(--accent); }
+
+    .profile-group { margin-bottom: 1.4rem; }
+    .profile-group:last-child { margin-bottom: 0; }
+
+    .profile-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
 
     .contact {
       font-size: 0.85rem;
@@ -204,70 +226,6 @@
       .wrap { padding: 3rem 0 4rem; }
       .results li { grid-template-columns: 1fr; gap: 0.1rem; }
       .results .rank { text-align: left; }
-    }
-
-    /* ── LINKEDIN ROULETTE ── */
-    .li-roulette {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .li-btn {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      font-weight: 400;
-      color: var(--muted);
-      background: none;
-      border: 1px solid var(--border);
-      padding: 0.4rem 0.85rem;
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .li-btn:hover {
-      border-color: var(--accent);
-      color: var(--text);
-    }
-
-    .li-btn.active {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .li-tag {
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 0.1rem 0.35rem;
-      letter-spacing: 0.05em;
-    }
-
-    .li-btn.active .li-tag {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .li-open {
-      font-size: 0.82rem;
-      color: var(--text);
-      text-decoration: none;
-      border: 1px solid var(--border);
-      padding: 0.45rem 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .li-open:hover {
-      border-color: var(--accent);
-      color: var(--accent);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -312,42 +270,42 @@
     <ul class="results">
       <li>
         <span>
-          <div class="event"><a href="https://ctftime.org/event/3327" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">Operation Heist CTF 2026</a></div>
+          <div class="event"><a href="https://ctftime.org/event/3327" target="_blank" rel="noopener">Operation Heist CTF 2026</a></div>
           <div class="meta">13–14 June · captained</div>
         </span>
         <span class="rank">17th</span>
       </li>
       <li>
         <span>
-          <div class="event"><a href="https://ctftime.org/event/3209" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">THEM?!CTF 2026</a></div>
+          <div class="event"><a href="https://ctftime.org/event/3209" target="_blank" rel="noopener">THEM?!CTF 2026</a></div>
           <div class="meta">29–31 May · 920 teams</div>
         </span>
         <span class="rank">28th</span>
       </li>
       <li>
         <span>
-          <div class="event"><a href="https://ctftime.org/event/3041" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">GPN CTF 2026</a></div>
+          <div class="event"><a href="https://ctftime.org/event/3041" target="_blank" rel="noopener">GPN CTF 2026</a></div>
           <div class="meta">5–6 June · 1138 teams</div>
         </span>
         <span class="rank">73rd</span>
       </li>
       <li>
         <span>
-          <div class="event"><a href="https://ctftime.org/event/3205" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">DEF CON CTF Qualifier 2026</a></div>
+          <div class="event"><a href="https://ctftime.org/event/3205" target="_blank" rel="noopener">DEF CON CTF Qualifier 2026</a></div>
           <div class="meta">22–25 May · 686 teams</div>
         </span>
         <span class="rank">255th</span>
       </li>
       <li>
         <span>
-          <div class="event"><a href="https://www.guardians.sk/guardians2026/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">Guardians Qualifications 2026</a></div>
+          <div class="event"><a href="https://www.guardians.sk/guardians2026/" target="_blank" rel="noopener">Guardians Qualifications 2026</a></div>
           <div class="meta">19 Jan – 1 Feb 2026 · 130 teams · blue team defence</div>
         </span>
         <span class="rank">22nd</span>
       </li>
       <li>
         <span>
-          <div class="event"><a href="https://ctftime.org/event/3081" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">0xfun CTF 2026</a></div>
+          <div class="event"><a href="https://ctftime.org/event/3081" target="_blank" rel="noopener">0xfun CTF 2026</a></div>
           <div class="meta">12–14 Feb · 1351 teams</div>
         </span>
         <span class="rank">297th</span>
@@ -360,14 +318,14 @@
     <ul class="results">
       <li>
         <span>
-          <div class="event"><a href="https://ctftime.org/event/3142" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">CyberGame Slovakia 2026</a></div>
+          <div class="event"><a href="https://ctftime.org/event/3142" target="_blank" rel="noopener">CyberGame Slovakia 2026</a></div>
           <div class="meta">1 Mar – 9 May · NBU SR / SK-CERT · 920 participants · top 1% nationally</div>
         </span>
         <span class="rank">8th</span>
       </li>
       <li>
         <span>
-          <div class="event"><a href="https://www.bsidesba.sk/ctf" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">BSides Bratislava CTF 2026</a></div>
+          <div class="event"><a href="https://www.bsidesba.sk/ctf" target="_blank" rel="noopener">BSides Bratislava CTF 2026</a></div>
           <div class="meta">5–8 May · regional practitioners</div>
         </span>
         <span class="rank">2nd</span>
@@ -379,51 +337,29 @@
 
   <div class="section">
     <div class="label">// profiles</div>
-    <div class="li-roulette" id="who-row">
-      <button class="li-btn active" data-who="team">
-        <span class="li-tag">team</span> e0_
-      </button>
-      <button class="li-btn" data-who="e1">
-        <span class="li-tag">e1</span> Ivan Oravec
-      </button>
+
+    <div class="profile-group">
+      <div class="profile-label">team e0_</div>
+      <div class="links">
+        <a href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener">LinkedIn <span class="arrow">↗</span></a>
+        <a href="https://ctftime.org/team/436674" target="_blank" rel="noopener">CTFtime <span class="arrow">↗</span></a>
+        <a href="https://github.com/e0sec/ctf-writeups" target="_blank" rel="noopener">CTF Writeups <span class="arrow">↗</span></a>
+        <a href="https://raw.githubusercontent.com/e0sec/ctf-writeups/main/themctf2026-certificate.png" target="_blank" rel="noopener">THEM?!CTF cert <span class="arrow">↗</span></a>
+      </div>
     </div>
-    <div class="li-roulette" id="platform-row">
-      <button class="li-btn active" data-platform="linkedin">
-        LinkedIn
-      </button>
-      <button class="li-btn" data-platform="ctftime">
-        CTFtime
-      </button>
-      <button class="li-btn team-only" data-platform="writeups">
-        CTF Writeups
-      </button>
-      <button class="li-btn e1-only" data-platform="cv">
-        CV
-      </button>
-      <button class="li-btn" data-platform="certs" id="certs-btn">
-        Certs
-      </button>
+
+    <div class="profile-group">
+      <div class="profile-label">e1 — Ivan Oravec</div>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/ivan-oravec" target="_blank" rel="noopener">LinkedIn <span class="arrow">↗</span></a>
+        <a href="https://ctftime.org/user/212906" target="_blank" rel="noopener">CTFtime <span class="arrow">↗</span></a>
+        <a href="/cv.html">CV <span class="arrow">↗</span></a>
+        <a href="https://portswigger.net/web-security/e/c/79d6f7b209a5bca4" target="_blank" rel="noopener">BSCP <span class="arrow">↗</span></a>
+        <a href="https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/8e3e27f7072e8de6" target="_blank" rel="noopener">AZ-104 <span class="arrow">↗</span></a>
+        <a href="https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/a2fd68a80b57d849" target="_blank" rel="noopener">AZ-500 <span class="arrow">↗</span></a>
+        <a href="https://raw.githubusercontent.com/e0sec/ctf-writeups/main/cybergame2026-certificate.png" target="_blank" rel="noopener">CyberGame cert <span class="arrow">↗</span></a>
+      </div>
     </div>
-    <div class="li-roulette" id="certs-row" style="display:none">
-      <button class="li-btn team-only" id="themctf-btn" data-cert="themctf">
-        THEM?!CTF 2026
-      </button>
-      <button class="li-btn e1-only" id="bscp-btn" data-cert="bscp">
-        BSCP
-      </button>
-      <button class="li-btn e1-only" data-cert="az104">
-        AZ-104
-      </button>
-      <button class="li-btn e1-only" data-cert="az500">
-        AZ-500
-      </button>
-      <button class="li-btn e1-only" data-cert="cybergame">
-        CyberGame
-      </button>
-    </div>
-    <a id="li-link" href="https://www.linkedin.com/company/e0sec/" target="_blank" rel="noopener" class="li-open">
-      open profile <span class="arrow">↗</span>
-    </a>
   </div>
 
   <hr>
@@ -441,7 +377,6 @@
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // ── TERMINAL ANIMATION ──────────────────────────────────────
   const states = [
     {
       cmd: 'id -gn',
@@ -493,126 +428,6 @@
   }
   cmdEl.textContent = states[0].cmd;
   runCycle();
-
-  // ── PROFILES ROULETTE ────────────────────────────────────────
-  const profiles = {
-    team: {
-      linkedin: 'https://www.linkedin.com/company/e0sec/',
-      ctftime:  'https://ctftime.org/team/436674',
-      writeups: 'https://github.com/e0sec/ctf-writeups'
-    },
-    e1: {
-      linkedin: 'https://www.linkedin.com/in/ivan-oravec',
-      ctftime:  'https://ctftime.org/user/212906',
-      cv:       '/cv.html'
-    }
-  };
-
-  const certs = {
-    team: {
-      themctf: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/themctf2026-certificate.png'
-    },
-    e1: {
-      bscp:      'https://portswigger.net/web-security/e/c/79d6f7b209a5bca4',
-      az104:     'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/8e3e27f7072e8de6',
-      az500:     'https://learn.microsoft.com/en-us/users/ivanoravec-0612/credentials/a2fd68a80b57d849',
-      cybergame: 'https://raw.githubusercontent.com/e0sec/ctf-writeups/main/cybergame2026-certificate.png'
-    }
-  };
-
-  let selWho      = 'team';
-  let selPlatform = 'linkedin';
-  let selCert     = null;
-
-  const liLink   = document.getElementById('li-link');
-  const certsRow = document.getElementById('certs-row');
-
-  function updateLink() {
-    const url = selPlatform === 'certs'
-      ? (certs[selWho] || {})[selCert]
-      : (profiles[selWho] || {})[selPlatform];
-    liLink.href = url || '#';
-    liLink.style.opacity = url ? '1' : '0.3';
-    liLink.style.pointerEvents = url ? 'auto' : 'none';
-  }
-
-  function refreshCertsRow(who) {
-    // show/hide cert buttons based on who
-    document.querySelectorAll('[data-cert]').forEach(b => {
-      b.style.display = (b.classList.contains('team-only') && who === 'team') ||
-                        (b.classList.contains('e1-only')   && who === 'e1')
-                        ? 'inline-flex' : 'none';
-    });
-    // activate first visible cert
-    const first = Array.from(document.querySelectorAll('[data-cert]')).find(b => b.style.display !== 'none');
-    document.querySelectorAll('[data-cert]').forEach(b => b.classList.remove('active'));
-    if (first) { first.classList.add('active'); selCert = first.dataset.cert; }
-    else selCert = null;
-  }
-
-  // Who buttons
-  document.querySelectorAll('[data-who]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-who]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selWho = btn.dataset.who;
-
-      // show/hide writeups (team only) and cv (e1 only)
-      document.querySelectorAll('[data-platform="writeups"]').forEach(b =>
-        b.style.display = selWho === 'team' ? 'inline-flex' : 'none');
-      document.querySelectorAll('[data-platform="cv"]').forEach(b =>
-        b.style.display = selWho === 'e1' ? 'inline-flex' : 'none');
-
-      // if current platform not available for new who, reset to linkedin
-      if (selPlatform !== 'certs' && !(profiles[selWho] || {})[selPlatform]) {
-        selPlatform = 'linkedin';
-        document.querySelectorAll('[data-platform]').forEach(b =>
-          b.classList.toggle('active', b.dataset.platform === 'linkedin'));
-        certsRow.style.display = 'none';
-      }
-
-      if (selPlatform === 'certs') refreshCertsRow(selWho);
-      updateLink();
-    });
-  });
-
-  // Platform buttons
-  document.querySelectorAll('[data-platform]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-platform]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selPlatform = btn.dataset.platform;
-      if (selPlatform === 'certs') {
-        certsRow.style.display = 'flex';
-        refreshCertsRow(selWho);
-      } else {
-        certsRow.style.display = 'none';
-        selCert = null;
-      }
-      updateLink();
-    });
-  });
-
-  // Cert buttons
-  document.querySelectorAll('[data-cert]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-cert]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selCert = btn.dataset.cert;
-      updateLink();
-    });
-  });
-
-  // Init — hide writeups for e1, init cert row hidden
-  document.querySelectorAll('[data-platform="writeups"]').forEach(b => b.style.display = 'inline-flex');
-  document.querySelectorAll('[data-platform="cv"]').forEach(b => b.style.display = 'none');
-  certsRow.style.display = 'none';
-  refreshCertsRow('team');
-  updateLink();
 </script>
 </body>
 </html>
-
-
-
-
